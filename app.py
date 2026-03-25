@@ -40,14 +40,12 @@ if arquivo and dia:
         dados = pd.read_excel(arquivo)
         resultado = analiseT2(dados, dia)
 
-        # Exibir resultado
-        st.text_area("Resultado da análise:", resultado, height=300, key="resultado_area")
+        # Exibir resultado em área de texto
+        st.text_area("Resultado da análise:", resultado, height=300)
 
-        # Botão de copiar usando JavaScript
-        copy_code = f"""
-        <button onclick="navigator.clipboard.writeText(`{resultado}`)">📋 Copiar Resultado</button>
-        """
-        st.markdown(copy_code, unsafe_allow_html=True)
+        # Botão que mostra o texto pronto para copiar
+        if st.button("📋 Mostrar texto para copiar"):
+            st.code(resultado, language="text")
 
     except Exception as e:
         st.error(f"Erro ao processar o arquivo: {e}")
