@@ -41,8 +41,9 @@ if arquivo and dia:
         resultado = analiseT2(dados, dia)
 
         # Exibir resultado em área de texto
-        st.text_area("Resultado da análise:", resultado, height=300)
+        # st.text_area("Resultado da análise:", resultado, height=300)
 
+        st.subheader("Resultado da análise:")
         # Botão que mostra o texto pronto para copiar
         # if st.button("📋 Mostrar texto para copiar"):
         st.code(resultado, language="text")
