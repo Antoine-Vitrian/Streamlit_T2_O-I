@@ -5,7 +5,7 @@ import streamlit as st
 st.set_page_config(page_title="Analisador de Arquivos Excel", layout="wide")
 
 # Título
-st.title("📊 Analisador de Arquivos Excel")
+st.title("📊 Analisador de Arquivos Excel T2")
 
 # Entrada do dia
 dia = st.text_input("Digite o dia da consulta:")
