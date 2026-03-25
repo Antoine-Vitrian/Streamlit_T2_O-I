@@ -1,8 +1,19 @@
-from flask import Flask, render_template, request
 import pandas as pd
+import streamlit as st
 
-app = Flask(__name__)
+# Configuração da página
+st.set_page_config(page_title="Analisador de Arquivos Excel", layout="wide")
 
+# Título
+st.title("📊 Analisador de Arquivos Excel")
+
+# Entrada do dia
+dia = st.text_input("Digite o dia da consulta:")
+
+# Upload do arquivo Excel
+arquivo = st.file_uploader("Selecione o arquivo Excel", type=["xlsx", "xls"])
+
+# Função de análise
 def analiseT2(dados, dia):
     baixoT2 = 10
     altoT2 = 60
@@ -23,20 +34,22 @@ def analiseT2(dados, dia):
 
     return resultado
 
-@app.route("/", methods=["GET", "POST"])
-def upload_file():
-    resultado = ""
-    if request.method == "POST":
-        arquivo = request.files["file"]
-        dia = request.form.get("dia")
+# Processamento
+if arquivo and dia:
+    try:
+        dados = pd.read_excel(arquivo)
+        resultado = analiseT2(dados, dia)
 
-        try:
-            dados = pd.read_excel(arquivo)
-            resultado = analiseT2(dados, dia)
-        except Exception as e:
-            resultado = f"Erro ao processar o arquivo: {e}"
+        # Exibir resultado
+        st.text_area("Resultado da análise:", resultado, height=300)
 
-    return render_template("index.html", resultado=resultado)
+        # Botão para baixar resultado
+        st.download_button(
+            label="📥 Baixar resultado",
+            data=resultado,
+            file_name=f"resultado_{dia}.txt",
+            mime="text/plain"
+        )
 
-if __name__ == "__main__":
-    app.run(debug=True)
+    except Exception as e:
+        st.error(f"Erro ao processar o arquivo: {e}")
