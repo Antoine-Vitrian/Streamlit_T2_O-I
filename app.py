@@ -41,14 +41,12 @@ if arquivo and dia:
         resultado = analiseT2(dados, dia)
 
         # Exibir resultado em área de texto
-        # st.text_area("Resultado da análise:", resultado, height=300)
+        st.text_area("Resultado da análise:", resultado, height=300)
 
-        # # Botão que mostra o texto pronto para copiar
+        # Botão que mostra o texto pronto para copiar
         # if st.button("📋 Mostrar texto para copiar"):
-        #     st.code(resultado, language="text")
+        st.code(resultado, language="text")
 
-        # Botão para copiar o resultado
-        st_copy_to_clipboard(resultado, "📋 Copiar Resultado")
 
     except Exception as e:
         st.error(f"Erro ao processar o arquivo: {e}")
