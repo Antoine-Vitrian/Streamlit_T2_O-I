@@ -41,15 +41,14 @@ if arquivo and dia:
         resultado = analiseT2(dados, dia)
 
         # Exibir resultado
-        st.text_area("Resultado da análise:", resultado, height=300)
+        st.text_area("Resultado da análise:", resultado, height=300, key="resultado_area")
 
-        # Botão para baixar resultado
-        st.download_button(
-            label="📥 Baixar resultado",
-            data=resultado,
-            file_name=f"resultado_{dia}.txt",
-            mime="text/plain"
-        )
+        # Botão de copiar usando JavaScript
+        copy_code = f"""
+        <button onclick="navigator.clipboard.writeText(`{resultado}`)">📋 Copiar Resultado</button>
+        """
+        st.markdown(copy_code, unsafe_allow_html=True)
 
     except Exception as e:
         st.error(f"Erro ao processar o arquivo: {e}")
+
